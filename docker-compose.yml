@@ -17,7 +17,7 @@ services:
       - "4900:4900"
       - "4901:4901"
       - "4902:4902"
-      - "4903:4903"
+      - "4909:4909"
     volumes:
       - ./data-prepper-pipeline.yml:/usr/share/data-prepper/pipelines/pipelines.yaml
     networks:

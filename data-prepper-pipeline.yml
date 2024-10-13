@@ -14,8 +14,6 @@ metrics-pipeline:
         index: metrics-%{yyyy.MM.dd}
 
 otel-logs-pipeline:
-  workers: 5
-  delay: 10
   source:
     otel_logs_source:
       ssl: false
@@ -36,7 +34,7 @@ entry-pipeline:
   source:
     otel_trace_source:
       ssl: false
-      port: 4903
+      port: 4909
   processor:
     - otel_traces:
   sink:
@@ -48,12 +46,12 @@ trace-normal-pipeline:
       name: "entry-pipeline"
   processor:
     - aggregate:
-        identification_keys: ["serviceName"]
+        identification_keys: ["serviceName", "traceId"]
         action:
           percent_sampler:
-            percent: 60
-        group_duration: "30s"
-        aggregate_when: "/status_code != 2 and /durationInNanos <= 1000000000"
+            percent: 99
+#        group_duration: "30s"
+#        aggregate_when: "/status_code != 2 and /durationInNanos <= 1000000000"
   sink:
     - opensearch:
         hosts: ["opensearch:9200"]

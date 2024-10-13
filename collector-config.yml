@@ -15,7 +15,7 @@ exporters:
     tls:
       insecure: true
   otlp/traces:
-    endpoint: "data-prepper:4903"
+    endpoint: "data-prepper:4909"
     tls:
       insecure: true
   otlp/logs:
@@ -29,7 +29,7 @@ service:
       exporters: [ otlp/jaeger, otlp/traces ]
     logs:
       receivers: [ otlp ]
-      exporters: [ debug, otlp/logs ]
+      exporters: [ otlp/logs ]
     metrics:
       receivers: [ otlp ]
       exporters: [ otlp/metrics ]
